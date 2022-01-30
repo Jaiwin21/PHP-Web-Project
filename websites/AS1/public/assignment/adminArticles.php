@@ -16,9 +16,12 @@
 		<img src="images/banners/randombanner.php" />
 		<main>
 			<?php
+
+			// Logincheck to see if it is an admin account.	
+			if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
 		
 				// If submit is pressed the data will be selected from the table listed below.
-				$stmt = $pdo->prepare('SELECT * FROM article');
+				$stmt = $pdo->prepare('SELECT * FROM article ORDER BY publishDate DESC');
 				$stmt->execute();
 
 						// The data selected above is then printed out row by row onto the site.
@@ -44,21 +47,12 @@
 						echo '</br>';
 						echo '<a href = "adminCategories.php">Manage categories!</a>';
 
-			
-			
-			
-				
-				
-				
-			
+					} else {
+
+						echo '<h1>You are not authorized to view this page.</h1>';
+					}			
 			?>
 
-
-
-
-
-		
-    
 		</main>
 
 		<?php

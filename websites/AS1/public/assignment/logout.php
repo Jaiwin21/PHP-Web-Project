@@ -5,6 +5,8 @@ session_start();
 require '../../dbConfig.php';
 // Unsetting the variable once the logout has been prompted
  unset($_SESSION['loggedin']);
+ unset($_SESSION['adminloggedin']);
+ 
 
 ?>
 
@@ -25,10 +27,6 @@ require '../../dbConfig.php';
                 <p> </p>
                 <a href="login.php">Login</a>
 			</article>
-
-	
-
-
     
 		</main>
 

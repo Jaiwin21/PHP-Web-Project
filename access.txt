@@ -1,5 +1,5 @@
 homepageurl: https://as1.v.je/assignment/index.php
-adminuser: leomoss@hotmail.com
+adminuser: adam@gmail.com
 adminpass: test
-nonadminuser: lewis@gmail.com
+nonadminuser: leomoss@gmail.com
 nonadminpassword: test

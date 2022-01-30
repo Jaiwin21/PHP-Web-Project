@@ -26,6 +26,7 @@
 
 					<?php
 
+			
 						// If submit is pressed then everything from the person table, where the email is the same as the one in the URL, is executed.
 						if (isset($_POST['submit'])) {	
 						$stmt = $pdo->prepare('SELECT * FROM person WHERE email = :email');
@@ -38,55 +39,53 @@
 						// Hashing the password acted as a prerequisite as we are now able to use the password verify function to read the hashed value stored in the database.
 						if (password_verify($_POST['password'], $user['password'])) {
 						$_SESSION['loggedin'] = true;
-						
-
-						// If usertype is equal to admin then it prints out the link to the administration page.
-						// This is the only way to access the admin area, only under these stipulations.
-						if ($user['person_id'] === '5') {
-        
-						echo '<p>Welcome back! ';
-						echo '<a href="adminArticles.php">Administration area</a>';
-						
-						// If they do not have a admin usertype then they are directed to a page where they can view articles.
-						} 
-						else {
-					 
+						$_SESSION['displayname'] = $user['name'];
+					
                                 
 								//header('Location: loginCheckUser.php');
 								echo '<p>You have logged in! ';
 								echo '<a href="allArticle.php">Lets view some articles</a>';
 								
 							}
+							else {
+								echo '<p>You have entered the incorrect details.</p>';
+								echo '<a href="login.php">Try again</a>'; 
+							}
+						} 
+	
+                
+            
+					// If the submit button was not pressed then the form is printed. 
+					// This is to ensure that there is always something displayed on the site.
+						else {
+						$_SESSION['notloggedin'] = true;
+						?>
+						<form action="login.php" method = "POST">
+						<label>Email: </label> <input type="text" name="email" />
+						<label>Password: </label> <input type="password" name="password" />
+						<input type="submit" name="submit" value="submit" />
 						
-                            
+						</form>
+					
+						
+						
+						<?php
 						}
-					}
+						// Logincheck to see if it is an admin account.
+						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] = true) {
 
-                
-
-                
-            
-			// If the submit button was not pressed then the form is printed. 
-			// This is to ensure that there is always something displayed on the site.
-			else {
-				?>
-				<form action="login.php" method = "POST">
-				<label>Email: </label> <input type="text" name="email" />
-				<label>Password: </label> <input type="password" name="password" />
-				<input type="submit" name="submit" value="submit" />
-				
-				</form>
-            
-				
-				
-				<?php
-				}
-				?>
-
-								<!-- A link to the registration page to register if not already registered. -->
-								<p>Not registered? Register</p>
-								<a href="register.php">here</a>
-			</article>
+							echo'<p></p>';
+						} else{
+							echo '<p>Not registered? Register</p>';
+							echo '<a href="register.php">here</a>';
+							echo '</br>';
+							echo '<p>Admin?</p>';
+							echo '<a href="adminLogin.php">Click here</a>';
+								} 
+			?>
+							 
+			
+		</article>
 
 			
 		</main>

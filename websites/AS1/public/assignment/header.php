@@ -10,6 +10,7 @@
 		</header>
 		<nav>
 			<ul>
+				<li><a href="index.php">Home</a></li>
 				<li><a href="allArticle.php">Latest Articles</a></li>
 				<li><a href="#">Select Category</a>
 
@@ -24,8 +25,7 @@
 											echo '<ul>';
 											foreach ($stmt as $row) {
 												echo '<li>';
-												echo '<a href = "categorySearch.php?categoryId=' . $row['name'] . '"> ' . $row['name'] . '</a>';
-												// echo $row['categoryname'];
+												echo '<a href = "categorySearch.php?categoryId=' . $row['categoryId'] . '"> ' . $row['name'] . '</a>';
 												
 												echo '</li>';
 											}
@@ -35,15 +35,23 @@
 																	
 						 </a></li>
 						
+						<li><a href="login.php">Login</a></li>
+						<?php
+						 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+						 echo '<li><a href="logout.php">Log off</a></li>'; 
+						}
+						if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true) {
+							echo '<li><a href="logout.php">Log off</a></li>'; 
+						   }
 						
+						?>
 						
+						<li><a href="adminLogin.php">Administration</a></li>
 					</ul>
 		
 
 
-			<a href="login.php">Login</a>
-	
-			<a href="logout.php">Log off</a>
+			
 
 		
 		</nav>

@@ -66,18 +66,11 @@
 
 
 					<input type="submit" name = "submit" value = "Submit">
+		</form>
 
-
-
-
-</form>
-
-
-
-
-<?php
-}
-?> 
+		<?php
+		}
+		?> 
 		</main>
 
 		<?php

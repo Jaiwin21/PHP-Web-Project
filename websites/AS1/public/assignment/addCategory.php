@@ -45,18 +45,20 @@
                     
                 }
 
-        // If the submit button was not pressed then the form is printed. 
-		// This is to ensure that there is always something displayed on the site.
-        else {
-        ?>
-        <form action="addCategory.php" method = "POST">
-        <label>New Category: </label> <input type="text" name="name" />
-        <input type="submit" name="submit" value="submit" />
+                // Logincheck to see if it is an admin account.
+                if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
+                ?>
+                <form action="addCategory.php" method = "POST">
+                <label>New Category: </label> <input type="text" name="name" />
+                <input type="submit" name="submit" value="submit" />
 
-        </form>
+                </form>
 
 
-        <?php
+                <?php
+                } else {
+
+                 echo '<h1>You are not authorized to view this page.</h1>';
         }
         ?>
 

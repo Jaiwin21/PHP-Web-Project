@@ -26,17 +26,19 @@
 
 					<?php
 							// Statement below selects everything from the articles table from the database.
-							$stmt = $pdo->prepare('SELECT * FROM article');
+							$stmt = $pdo->prepare('SELECT * FROM article ORDER BY publishDATE DESC LIMIT 10');
 							$stmt->execute();
 
 							// The data selected above is then printed out row by row onto the site.
 							echo '<ul>';
 							foreach ($stmt as $row) {
 								echo '<li>';
-								echo $row['title'] . '</br>' . ' ' . '</br>'  .  $row['publishDate'];
+								echo '<a class="articleLink" href="articleDisplay.php?article_id='.$row['article_id']. '">'.$row['title']. '</a>';
+								echo '<p>'.$row['publishDate'].'</p>';
 								echo '</li>';
 							}
 							echo '</ul>';
+							
 
 			?>	
 			</article>

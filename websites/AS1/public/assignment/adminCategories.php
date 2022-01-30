@@ -19,49 +19,44 @@
 		
 
 		<?php
-			// Must be signed in to view this page.
-			if ($_SESSION != true) {
-
-				echo 'You must be logged in as an admin to view this page.';
-				} 
-				else {
-						// If logged in, all the data will be selected from the table listed below.
-						$stmt = $pdo->prepare('SELECT * FROM category');
-						$stmt->execute();
+					// Link to add new categories
+					echo '<a href = "addCategory.php">Add Categories!</a>';
+					// If logged in, all the data will be selected from the table listed below.
+					$stmt = $pdo->prepare('SELECT * FROM category');
+					$stmt->execute();
 
 
-						// The data selected above is then printed out row by row onto the site.
-						echo '<ul>';
-						foreach ($stmt as $row) {
+					// Logincheck to see if it is an admin account.
+					if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
+					
+					// The data selected above is then printed out row by row onto the site.
+					echo '<ul>';
+					foreach ($stmt as $row) {
 
-						echo '<li>';
-						echo  $row['name'];
+					echo '<li>';
+					echo  $row['name'];
 
-						// Links to edit or delete.
-						echo '</br>';
-						echo '<a href = "editCategory.php?categoryId=' . $row['categoryId'] . '">Edit</a>';
-						echo '</br>';
-						echo '<a href = "deleteCategory.php?categoryId=' . $row['categoryId'] . '">Delete</a>';
+					// Links to edit or delete.
+					echo '</br>';
+					echo '<a href = "editCategory.php?categoryId=' . $row['categoryId'] . '">Edit</a>';
+					echo '</br>';
+					echo '<a href = "deleteCategory.php?categoryId=' . $row['categoryId'] . '">Delete</a>';
 
-						echo '</li>';
-				
-					} 
-							
-							echo '</ul>';
+					echo '</li>';
+			 
+						
+						echo '</ul>';
 
-							// Link to add new categories
-							echo '<a href = "addCategory.php">Add Categories!</a>';
+			
+					}
+				} else {
+			
+						echo '<h1>You are not authorized to view this page.</h1>';
+			}
+		
 
 			?>
 
-
-
-
-		
-
-<?php
-}
-?>
     
 		</main>
 

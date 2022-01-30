@@ -16,9 +16,12 @@
 		<img src="images/banners/randombanner.php" />
 		<main>
 		
-
-		<p>Add an article below!</p>
-
+		<?php
+		// Logincheck to see if it is an admin account.
+		if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true) {
+			echo '<p>Add an article below!</p>'; 
+		   }
+		?>
 		<?php
 
 					// If submit is pressed the new data will be inserted into the attributed listed below.
@@ -36,7 +39,7 @@
 							];
 							$stmt->execute($values);
 
-							echo 'Nice! An article has been added! ';
+							echo '<b>Nice! An article has been added!<b>';
 							echo '</br>';
 							echo 'Click <a href= "allArticle.php">here</a> to see it!';
 							echo '</br>';
@@ -49,13 +52,25 @@
 				
 				// If the submit button was not pressed then the form is printed. 
 				// This is to ensure that there is always something displayed on the site.
-				else {
+				if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
 				?>
 				<form action="addArticle.php" method = "POST">
 				<label>Article Name: </label> <input type="text" name="title" />
 				<label>Author: </label> <input type="text" name="articleauthor" />
 				<label>Date of publish: </label> <input type="date" name="publishDate" />
-				<label>Category: </label> <input type="text" name="categoryId" />
+				<label>Category</label>
+				<select name="categoryId">
+         	   <?php
+                $stmt = $pdo->prepare('SELECT * FROM category');
+                $stmt->execute();
+
+                foreach ($stmt as $row) {
+                    echo '<option value="' . $row['categoryId'] . '">' . $row['name'] . '</option>';
+                }
+
+          	  ?>
+
+          	  </select>
 				<label>Article: </label> <textarea id="content" name="content" rows="10" cols="100"> </textarea>
 				<input type="submit" name="submit" value="submit" />
 
@@ -63,7 +78,12 @@
 
 
 				<?php
+				} else {
+
+					echo '<h1>You are not authorized to view this page.</h1>';
 				}
+
+
 				?>
 
 

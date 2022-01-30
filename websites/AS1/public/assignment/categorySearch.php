@@ -31,12 +31,8 @@
                 // The data selected above is then printed out row by row onto the site.
                 echo '<ul>';
                 foreach ($stmt as $row) {
-                    echo '<li>'; ?>
-                    <?php
-                    echo '<a class="articleLink" href="articleDisplay.php?title='.$row['title']. '">'.$row['title']. '</a>'
-                        
-?>  
-                    <?php   
+                    echo '<li>';
+                    echo '<a class="articleLink" href="articleDisplay.php?article_id='.$row['article_id']. '">'.$row['title']. '</a>'; 
                     echo '</br>';
                     echo $row['publishDate'];
                     
@@ -45,7 +41,7 @@
                         // Messages at the bottom of the page.
                         echo '</ul>';
                         echo 'These are all the articles related to ';
-                        echo $_GET['categoryId'];
+                        echo $row['title'];
                         echo '</br>';
 
                         echo '<a href="index.php"> Return home!</a>';
@@ -53,12 +49,8 @@
                         echo '<a href="adminArticles.php"> Return to administration area!</a>';
 
                 }
-      
-
-
+    
 		?>
-
-
     
 		</main>
 		

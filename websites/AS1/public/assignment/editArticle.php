@@ -47,8 +47,9 @@
 
                             }
 
-                    // If the submit is not pressed then simply print out the prefilled form with the data that may need updating.
-                    else if (isset($_GET['article_id'])) {
+                    // Logincheck to see if it is an admin account. If so it will print the pre-filled forms.
+                    if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
+                    if (isset($_GET['article_id'])) {
 
                         $stmt = $pdo->prepare('SELECT * FROM article WHERE article_id = :article_id');
                     
@@ -59,7 +60,6 @@
                         $stmt->execute($values);
                     
                         $user = $stmt->fetch();
-
 
                 ?>
                 <!-- The form that will contain prefilled data from the database which can be altered on the website and updated in the system. -->
@@ -72,8 +72,20 @@
                 <input type="text" name="articleauthor" value="<?php echo $user['articleauthor']; ?>" />
                 <label>Date of publish:</label>
                 <input type="text" name="publishDate" value="<?php echo $user['publishDate']; ?>" />
-                <label>Category:</label>
-                <input type="text" name="categoryId" value="<?php echo $user['categoryId']; ?>" />
+                <label>Category</label>
+				<select name="categoryId">
+         	   <?php
+                $stmt = $pdo->prepare('SELECT * FROM category');
+                $stmt->execute();
+
+                foreach ($stmt as $row) {
+                    echo '<option value="' . $row['categoryId'] . '">' . $row['name'] . '</option>';
+                }
+
+          	  ?>
+
+          	  </select>
+            
                 <label>Article:</label>
                 <textarea id="content" name="content" rows="10" cols="100"><?php echo $user['content']; ?>  </textarea>
                 
@@ -83,7 +95,15 @@
                 </form>
 
                 <?php 
-                }
+                        } 
+                    }  
+                    
+                    else {
+
+                            echo '<h1>You are not authorized to view this page.</h1>';
+                        }
+        
+                
             
                 ?>
             

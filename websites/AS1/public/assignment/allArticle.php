@@ -22,7 +22,7 @@
 		
 		
 				// Simply used to print out all the articles stored in the database.
-				$stmt = $pdo->prepare('SELECT * FROM article');
+				$stmt = $pdo->prepare('SELECT * FROM article ORDER BY publishDate DESC');
 				$stmt->execute();
 
 
@@ -30,7 +30,8 @@
 						foreach ($stmt as $row) {
 						
 							echo '<li>';
-							echo $row['title'] . ' by ' . $row['articleauthor'] . ' published on ' . $row['publishDate'] .
+							echo '<a class="articleLink" href="articleDisplay.php?article_id='.$row['article_id']. '">'.$row['title']. '</a>';
+							echo  ' by ' . $row['articleauthor'] . ' published on ' . $row['publishDate'] .
 							'</br>' . $row['content'];
 
 								

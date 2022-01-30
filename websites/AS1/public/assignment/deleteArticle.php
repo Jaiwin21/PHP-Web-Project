@@ -18,7 +18,9 @@
 
 					// If the article ID is set it can be retrived from the URL via a GET variable and used to identify the row that is going to be deleted.
 					// Very clever if I say so myself.
-                    if (isset($_GET['article_id'])) {
+					// Logincheck to see if it is an admin account.
+					if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
+					if (isset($_GET['article_id'])) {
 					
 					// LIMIT 1 is used as good practice - in order to obviate accidents.
                     $stmt = $pdo->prepare('DELETE FROM article WHERE article_id = :article_id LIMIT 1 ');
@@ -33,12 +35,12 @@
                     echo '</br>';
                     echo '<a href="adminArticles.php"> Return to administration area!</a>';
                 }
+			} else {
+				echo '<h1>You are not authorized to view this page.</h1>';
+			}
 
 
-		?>
-
-
-    
+		?>    
 		</main>
 
 		<?php

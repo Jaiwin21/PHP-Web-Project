@@ -42,7 +42,8 @@
                 }
 
                             // If the submit is not pressed then simply print out the prefilled form with the data that may need updating.
-                            else if (isset($_GET['categoryId'])) {
+                            if (isset($_SESSION['adminloggedin']) && $_SESSION['adminloggedin'] == true ) {
+                            if (isset($_GET['categoryId'])) {
 
                                 $stmt = $pdo->prepare('SELECT * FROM category WHERE categoryId = :categoryId');
                             
@@ -71,6 +72,12 @@
 
                 <?php 
                 }
+            }
+            else {
+
+                echo '<h1>You are not authorized to view this page.</h1>';
+            }
+
             
                 ?>
             
